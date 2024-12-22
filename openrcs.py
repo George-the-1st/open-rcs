@@ -69,116 +69,116 @@ class App(customtkinter.CTk):
         self.logo_label.grid(row=1, column=0, padx=20, pady=(10, 10))
         # self.organization = customtkinter.CTkLabel(self.sidebar_frame, text="CIGE - Centro de Instrução\nde Guerra Eletrônica", anchor="w")
         # self.organization.grid(row=2, column=0, padx=20, pady=(0, 10),sticky="s")
-        self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Modo de Aparência:", anchor="s")
+        self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="s")
         self.appearance_mode_label.grid(row=5, column=0, padx=20, pady=(5, 5))
-        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Claro", "Escuro", "Sistema"], command=self.change_appearance_mode_event)
+        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"], command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(0, 20))
-        self.appearance_mode_optionemenu.set("Sistema")
-        self.last_appearance_mode = "Sistema"
+        self.appearance_mode_optionemenu.set("System")
+        self.last_appearance_mode = "System"
 
     def define_description_frame_and_tabview(self):
         self.descriptionFrame = customtkinter.CTkFrame(self, width=140)
         self.descriptionFrame.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20,0), sticky="new")
-        self.text = customtkinter.CTkLabel(self.descriptionFrame, text="\nO software Open-RCS foi desenvolvido para fins acadêmicos e de instrução\n referentes a diversos cenários de Guerra Eletrônica. A estimação do valor\nda RCS para as estruturas carregadas no programa é obitdo pelo método da\n Óptica Física e os resultados para os formatos clássicos (cubo, placa\nplana, esfera) foram validados contra o software externo POFacets.")
+        self.text = customtkinter.CTkLabel(self.descriptionFrame, text="\nOpen-RCS was developed for academic and instructional purposes\n related to various Electronic Warfare scenarios. The estimation of\nthe RCS value for the structures loaded in the program is obtained by the\n Physical Optics method and the results for the classical formats (cube, \nplate, sphere) were validated against the external software POFacets.")
         self.text.grid(row=0, column=0, padx=(10,10), pady=(10,20), sticky="nsew")
         
         self.tabview = customtkinter.CTkTabview(self, width=140)
         self.tabview.grid(row=1, column=1, columnspan=1, padx=(20, 0), pady=(0, 0), sticky="nsew")
-        self.tabview.add("Monoestático")
-        self.tabview.add("Biestático")
-        self.tabview.tab("Monoestático").grid_columnconfigure((0,1,2), weight=0)
-        self.tabview.tab("Biestático").grid_columnconfigure((0,1,2), weight=0)
+        self.tabview.add("Monostatic")
+        self.tabview.add("Bistatic")
+        self.tabview.tab("Monostatic").grid_columnconfigure((0,1,2), weight=0)
+        self.tabview.tab("Bistatic").grid_columnconfigure((0,1,2), weight=0)
 
     def define_monostatic_inputs(self):
-        self.monomodel_text = "\n⬆\nUpload Modelo (.stl)\n"
-        self.monotext = customtkinter.CTkLabel(self.tabview.tab("Monoestático"), text="Insira os dados para o cálculo monoestático da RCS estimada")
+        self.monomodel_text = "\n⬆\nUpload Model (.stl)\n"
+        self.monotext = customtkinter.CTkLabel(self.tabview.tab("Monostatic"), text="Enter the data for the Monostatic calculation of the estimated RCS")
         self.monotext.grid(row=0, column=0, columnspan=3, padx=5, pady=(5,5), sticky="ew")
-        self.monomodel = customtkinter.CTkButton(self.tabview.tab("Monoestático"), text=self.monomodel_text, command=self.upload, fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.monomodel = customtkinter.CTkButton(self.tabview.tab("Monostatic"), text=self.monomodel_text, command=self.upload, fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.monomodel.grid(row=4, column=0, rowspan=2, padx=5, pady=(5, 5),sticky="ns")
         self.monomodel.bind("<Enter>", self.on_button_enter)
         self.monomodel.bind("<Leave>", self.on_button_leave)
-        self.monofreq = customtkinter.CTkEntry(self.tabview.tab("Monoestático"), placeholder_text="Frequência (GHz)")
+        self.monofreq = customtkinter.CTkEntry(self.tabview.tab("Monostatic"), placeholder_text="Frequency (GHz)")
         self.monofreq.grid(row=1, column=0, padx=5, pady=(5, 5))
-        self.monocorr = customtkinter.CTkEntry(self.tabview.tab("Monoestático"), placeholder_text="Distância (m)")
+        self.monocorr = customtkinter.CTkEntry(self.tabview.tab("Monostatic"), placeholder_text="Distance (m)")
         self.monocorr.grid(row=1, column=1, padx=5, pady=(5, 5))
-        self.monodelstd = customtkinter.CTkEntry(self.tabview.tab("Monoestático"), placeholder_text="Desvio Padrão (m)")
+        self.monodelstd = customtkinter.CTkEntry(self.tabview.tab("Monostatic"), placeholder_text="Standard Deviation (m)")
         self.monodelstd.grid(row=1, column=2, padx=5, pady=(5, 5))
-        self.monoipol = customtkinter.CTkOptionMenu(self.tabview.tab("Monoestático"), values=["TM-Z","TE-Z"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.monoipol = customtkinter.CTkOptionMenu(self.tabview.tab("Monostatic"), values=["TM-Z","TE-Z"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.monoipol.grid(row=2, column=0, padx=5, pady=(5,5))
-        self.monoipol.set("Polarização")
-        self.monorest = customtkinter.CTkOptionMenu(self.tabview.tab("Monoestático"), values=["Material Específico","Condutor Perfeito"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.monoipol.set("Polarization")
+        self.monorest = customtkinter.CTkOptionMenu(self.tabview.tab("Monostatic"), values=["Specific Material", "Perfect Conductor"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.monorest.grid(row=3, column=0, padx=5, pady=(5,5))
-        self.monorest.set("Resistividade")
-        self.monopstart = customtkinter.CTkEntry(self.tabview.tab("Monoestático"), placeholder_text="Phi Inicial (º)")
+        self.monorest.set("Resistivity")
+        self.monopstart = customtkinter.CTkEntry(self.tabview.tab("Monostatic"), placeholder_text="Initial Phi (º)")
         self.monopstart.grid(row=2, column=1, padx=5, pady=(5, 5))
-        self.monopstop = customtkinter.CTkEntry(self.tabview.tab("Monoestático"), placeholder_text="Phi Final (º)")
+        self.monopstop = customtkinter.CTkEntry(self.tabview.tab("Monostatic"), placeholder_text="Final Phi (º)")
         self.monopstop.grid(row=3, column=1, padx=5, pady=(5, 5))
-        self.monodelp = customtkinter.CTkEntry(self.tabview.tab("Monoestático"), placeholder_text="Passo Phi (º)")
+        self.monodelp = customtkinter.CTkEntry(self.tabview.tab("Monostatic"), placeholder_text="Phi Step (º)")
         self.monodelp.grid(row=4, column=1, padx=5, pady=(5, 5))
-        self.monotstart = customtkinter.CTkEntry(self.tabview.tab("Monoestático"), placeholder_text="Teta Inicial (º)")
+        self.monotstart = customtkinter.CTkEntry(self.tabview.tab("Monostatic"), placeholder_text="Initial Theta (º)")
         self.monotstart.grid(row=2, column=2, padx=5, pady=(5, 5))
-        self.monotstop = customtkinter.CTkEntry(self.tabview.tab("Monoestático"), placeholder_text="Teta Final (º)")
+        self.monotstop = customtkinter.CTkEntry(self.tabview.tab("Monostatic"), placeholder_text="Final Theta (º)")
         self.monotstop.grid(row=3, column=2, padx=5, pady=(5, 5))
-        self.monodelt = customtkinter.CTkEntry(self.tabview.tab("Monoestático"), placeholder_text="Passo Teta (º)")
+        self.monodelt = customtkinter.CTkEntry(self.tabview.tab("Monostatic"), placeholder_text="Theta Step (º)")
         self.monodelt.grid(row=4, column=2, padx=5, pady=(5, 5))
-        self.monoresult = customtkinter.CTkButton(self.tabview.tab("Monoestático"), text="Gerar Resultados", command=lambda: self.generate_and_show_results_event('monostatic','interface'))
+        self.monoresult = customtkinter.CTkButton(self.tabview.tab("Monostatic"), text="Generate Results", command=lambda: self.generate_and_show_results_event('monostatic','interface'))
         self.monoresult.grid(row=6, column=1, padx=5, pady=(40, 0), sticky="nsew")
-        self.monoresultfile = customtkinter.CTkButton(self.tabview.tab("Monoestático"), text="Gerar Resultados do Input File", command=lambda:self.generate_and_show_results_event('monostatic','inputFile'), fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.monoresultfile = customtkinter.CTkButton(self.tabview.tab("Monostatic"), text="Generate Input File Results", command=lambda:self.generate_and_show_results_event('monostatic','inputFile'), fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.monoresultfile.grid(row=7, column=0, columnspan=3, padx=5, pady=(10, 0))
-        self.monoerror = customtkinter.CTkLabel(self.tabview.tab("Monoestático"), text="", font=customtkinter.CTkFont(size=10, weight="bold"))
+        self.monoerror = customtkinter.CTkLabel(self.tabview.tab("Monostatic"), text="", font=customtkinter.CTkFont(size=10, weight="bold"))
         self.monoerror.grid(row=8, column=1, padx=5, pady=0, sticky="ew")
 
     def define_bistatic_inputs(self):  
-        self.bitext = customtkinter.CTkLabel(self.tabview.tab("Biestático"), text="Insira os dados para o cálculo biestático da RCS estimada")
+        self.bitext = customtkinter.CTkLabel(self.tabview.tab("Bistatic"), text="Enter the data for the Bistatic calculation of the estimated RCS")
         self.bitext.grid(row=0, column=0, columnspan=3, padx=5, pady=(5,5), sticky="ew")
-        self.bimodel = customtkinter.CTkButton(self.tabview.tab("Biestático"), text="\n⬆\nUpload Modelo (.stl)\n", command=self.upload, fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.bimodel = customtkinter.CTkButton(self.tabview.tab("Bistatic"), text="\n⬆\nUpload Model (.stl)\n", command=self.upload, fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.bimodel.grid(row=4, column=0, rowspan=2, padx=5, pady=(5, 5))
-        self.bifreq = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Frequência (GHz)")
+        self.bifreq = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Frequency (GHz)")
         self.bifreq.grid(row=1, column=0, padx=5, pady=(5, 5))
-        self.bicorr = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Distância (m)")
+        self.bicorr = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Distance (m)")
         self.bicorr.grid(row=1, column=1, padx=5, pady=(5, 5))
-        self.bidelstd = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Desvio Padrão (m)")
+        self.bidelstd = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Standard Deviation (m)")
         self.bidelstd.grid(row=1, column=2, padx=5, pady=(5, 5))
-        self.biipol = customtkinter.CTkOptionMenu(self.tabview.tab("Biestático"), dynamic_resizing=False, values=["TM-Z","TE-Z"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.biipol = customtkinter.CTkOptionMenu(self.tabview.tab("Bistatic"), dynamic_resizing=False, values=["TM-Z","TE-Z"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.biipol.grid(row=2, column=0, padx=5, pady=(5,5))
-        self.biipol.set("Polarização")
-        self.birest = customtkinter.CTkOptionMenu(self.tabview.tab("Biestático"), values=["Material Específico","Condutor Perfeito"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.biipol.set("Polarization")
+        self.birest = customtkinter.CTkOptionMenu(self.tabview.tab("Bistatic"), values=["Specific Material", "Perfect Conductor"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.birest.grid(row=3, column=0, padx=5, pady=(5,5))
-        self.birest.set("Resistividade")
-        self.biphi = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Phi Incidente (º)")
+        self.birest.set("Resistivity")
+        self.biphi = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Phi Incident (º)")
         self.biphi.grid(row=2, column=1, padx=5, pady=(5, 5))
-        self.bitheta = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Teta Incidente (º)")
+        self.bitheta = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Teta Incident (º)")
         self.bitheta.grid(row=2, column=2, padx=5, pady=(5, 5))
-        self.bipstart = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Phi Inicial (º)")
+        self.bipstart = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Initial Phi (º)")
         self.bipstart.grid(row=3, column=1, padx=5, pady=(5, 5))
-        self.bipstop = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Phi Final (º)")
+        self.bipstop = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Final Phi (º)")
         self.bipstop.grid(row=4, column=1, padx=5, pady=(5, 5))
-        self.bidelp = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Passo Phi (º)")
+        self.bidelp = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Phi Step (º)")
         self.bidelp.grid(row=5, column=1, padx=5, pady=(5, 5))
-        self.bitstart = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Teta Inicial (º)")
+        self.bitstart = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Initial Theta (º)")
         self.bitstart.grid(row=3, column=2, padx=5, pady=(5, 5))
-        self.bitstop = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Teta Final (º)")
+        self.bitstop = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Final Theta (º)")
         self.bitstop.grid(row=4, column=2, padx=5, pady=(5, 5))
-        self.bidelt = customtkinter.CTkEntry(self.tabview.tab("Biestático"), placeholder_text="Passo Teta (º)")
+        self.bidelt = customtkinter.CTkEntry(self.tabview.tab("Bistatic"), placeholder_text="Theta Step (º)")
         self.bidelt.grid(row=5, column=2, padx=5, pady=(5, 5))
-        self.biresult = customtkinter.CTkButton(self.tabview.tab("Biestático"), text="Gerar Resultados", command=lambda: self.generate_and_show_results_event('bistatic','interface'))
+        self.biresult = customtkinter.CTkButton(self.tabview.tab("Bistatic"), text="Generate Results", command=lambda: self.generate_and_show_results_event('bistatic','interface'))
         self.biresult.grid(row=7, column=1, padx=5, pady=(40, 0), sticky="nsew")
-        self.biresultfile = customtkinter.CTkButton(self.tabview.tab("Biestático"), text="Gerar Resultados do Input File", command=lambda: self.generate_and_show_results_event('bistatic','inputFile'), fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.biresultfile = customtkinter.CTkButton(self.tabview.tab("Bistatic"), text="Generate Input File Results", command=lambda: self.generate_and_show_results_event('bistatic','inputFile'), fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.biresultfile.grid(row=8, column=0, columnspan=3, padx=5, pady=(10, 0))
-        self.bierror = customtkinter.CTkLabel(self.tabview.tab("Biestático"), text="")
+        self.bierror = customtkinter.CTkLabel(self.tabview.tab("Bistatic"), text="")
         self.bierror.grid(row=9, column=1, padx=5, pady=0, sticky="ew")
 
     def define_results_frame(self):
         self.results_frame = customtkinter.CTkFrame(self, width=250)
         self.results_frame.grid(row=0, column=2, rowspan=2, columnspan=2, padx=(20, 20), pady=(20, 0), sticky="nsew")
         self.results_frame.grid_columnconfigure((0,1,2), weight=1)
-        self.label_results = customtkinter.CTkLabel(self.results_frame, text="Resultados", font=customtkinter.CTkFont(size=13, weight="bold"))
+        self.label_results = customtkinter.CTkLabel(self.results_frame, text="Results", font=customtkinter.CTkFont(size=13, weight="bold"))
         self.label_results.grid(row=0, column=0, columnspan=3, padx=10, pady=(10,0), sticky="nsew")
         adjustp="./img/empty.png"
         adjust= customtkinter.CTkImage(dark_image=Image.open(adjustp), size=(600,300))
         self.adjust = customtkinter.CTkLabel(self.results_frame, image=adjust, text="")
         self.adjust.grid(row=1, column=0, columnspan=4, rowspan=4, padx=(30,30), pady=(10,10))
-        self.cancel = customtkinter.CTkButton(self.results_frame, text="Cancelar Carregamento", command=self.end_generate_attempt,fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.cancel = customtkinter.CTkButton(self.results_frame, text="Cancel Upload", command=self.end_generate_attempt,fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.gif = ImageLabel(self.results_frame)
         self.gif.destroy()
 
@@ -186,7 +186,7 @@ class App(customtkinter.CTk):
         self.material_window = customtkinter.CTkToplevel(self)
         self.material_window.withdraw()
 
-        self.material_window.title("Características do Material")
+        self.material_window.title("Material Characteristics")
         if self.system == "win":
             self.material_window.wm_iconbitmap()
             self.material_window.iconphoto(True, self.icon_image)
@@ -195,72 +195,72 @@ class App(customtkinter.CTk):
         self.material_window.grid_columnconfigure(0, weight=1)
         self.material_window.grid_columnconfigure(1, weight=1)
        
-        self.material_text = customtkinter.CTkLabel(self.material_window, text="Selecione o Tipo de Material")
+        self.material_text = customtkinter.CTkLabel(self.material_window, text="Select Material Type")
         self.material_text.grid(row=0, column=0,columnspan=2, padx=10, pady=10)
 
-        self.material_type = customtkinter.CTkOptionMenu(self.material_window, values=["Material Transparente","PEC","Composito", "Camada de Composito em PEC", "Multiplas Camadas", "Multiplas Camadas em PEC"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'], command=self.on_select_material_type)
+        self.material_type = customtkinter.CTkOptionMenu(self.material_window, values=["Transparent Material","PEC","Composite", "PEC Composite Layer", "Multi Layers", "Multiple Layers in PEC"], fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'], command=self.on_select_material_type)
         self.material_type.grid(row=1, column=0, columnspan=2, padx=5, pady=(5,5))
 
-        self.material_ffacet = customtkinter.CTkLabel(self.material_window, text="Primeira Faceta")
+        self.material_ffacet = customtkinter.CTkLabel(self.material_window, text="First Facet")
         self.material_ffacet.grid(row=2, column=0, padx=5, pady=(5,5))
 
-        self.ffacet_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Todas")
+        self.ffacet_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="All")
         self.ffacet_entry.grid(row=3, column=0, padx=5, pady=(5, 5))
 
-        self.material_lfacet = customtkinter.CTkLabel(self.material_window, text="Última Facetas")
+        self.material_lfacet = customtkinter.CTkLabel(self.material_window, text="Last Facets")
         self.material_lfacet.grid(row=2, column=1, padx=5, pady=(5,5))
 
-        self.lfacet_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Todas")
+        self.lfacet_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="All")
         self.lfacet_entry.grid(row=3, column=1, padx=5, pady=(5, 5))
 
-        self.material_perms = customtkinter.CTkLabel(self.material_window, text="Permissividade")
+        self.material_perms = customtkinter.CTkLabel(self.material_window, text="Permissiveness")
         self.material_perms.grid(row=4, column=0, columnspan=2, padx=5, pady=(5,5))
 
-        self.relperm_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Permissividade Rel.")
+        self.relperm_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Permissiveness Rel.")
         self.relperm_entry.grid(row=6, column=0, padx=5, pady=(5, 5))
 
-        self.losstang_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Tang. de Perdas")
+        self.losstang_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Tang. of Losses")
         self.losstang_entry.grid(row=6, column=1, padx=5, pady=(5, 5))
 
-        self.material_perm = customtkinter.CTkLabel(self.material_window, text="Permeabilidade")
+        self.material_perm = customtkinter.CTkLabel(self.material_window, text="Permeability")
         self.material_perm.grid(row=7, column=0, columnspan=3, padx=5, pady=(5,5), sticky="ew")
 
-        self.real_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Parte Real")
+        self.real_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Real Part")
         self.real_entry.grid(row=9, column=0, padx=5, pady=(5, 5))
 
-        self.imag_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Parte Imaginária")
+        self.imag_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Imaginary Part")
         self.imag_entry.grid(row=9, column=1, padx=5, pady=(5, 5))
 
-        self.material_thick = customtkinter.CTkLabel(self.material_window, text="Espessura (mm)")
+        self.material_thick = customtkinter.CTkLabel(self.material_window, text="Thickness (mm)")
         self.material_thick.grid(row=10, column=0, columnspan=2, padx=5, pady=(5,5))
 
-        self.thick_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Espessura")
+        self.thick_entry = customtkinter.CTkEntry(self.material_window, placeholder_text="Thickness")
         self.thick_entry.grid(row=11, column=0,columnspan=2, padx=5, pady=(5, 5))
 
-        self.button_addlayer = customtkinter.CTkButton(self.material_window, text="Adicionar Camada", command=lambda: self.add_new_layer_event())
+        self.button_addlayer = customtkinter.CTkButton(self.material_window, text="Add Layer", command=lambda: self.add_new_layer_event())
 
-        self.button_removelayer = customtkinter.CTkButton(self.material_window, text="Remover Última Camada", command=lambda: self.remove_last_layer())
+        self.button_removelayer = customtkinter.CTkButton(self.material_window, text="Remove Last Layer", command=lambda: self.remove_last_layer())
         
         self.material_message = customtkinter.CTkLabel(self.material_window, text="", font=customtkinter.CTkFont(size=10, weight="bold"))
         self.material_message.grid(row=13, column=0, columnspan=2, padx=5, pady=(5,5))
 
-        self.button_openconfig = customtkinter.CTkButton(self.material_window, text="Calcular com Arquivo", command=lambda:self.initiate_thread_for_function(self.define_material_properties_list_from_material_file))
+        self.button_openconfig = customtkinter.CTkButton(self.material_window, text="Calculate with File", command=lambda:self.initiate_thread_for_function(self.define_material_properties_list_from_material_file))
         self.button_openconfig.grid(row=14, column=1, padx=5, pady=(5,5))
 
-        self.button_actualconfig = customtkinter.CTkButton(self.material_window, text="Ver Camadas Atuais", command=lambda: self.show_actual_material_config_event())
+        self.button_actualconfig = customtkinter.CTkButton(self.material_window, text="View Current Tiers", command=lambda: self.show_actual_material_config_event())
         self.button_actualconfig.grid(row=14, column=0, padx=5, pady=(5,5))
 
-        self.button_saveconfig = customtkinter.CTkButton(self.material_window, text="Salvar", command=lambda: self.save_current_material_properties())
+        self.button_saveconfig = customtkinter.CTkButton(self.material_window, text="Save", command=lambda: self.save_current_material_properties())
         self.button_saveconfig.grid(row=15, column=0, padx=5, pady=(5,5))
 
-        self.button_continue = customtkinter.CTkButton(self.material_window, text="Calcular RCS",command=lambda: self.initiate_thread_for_function(self.run_write_matrl_and_calculate_rcs))
+        self.button_continue = customtkinter.CTkButton(self.material_window, text="Calculate RCS",command=lambda: self.initiate_thread_for_function(self.run_write_matrl_and_calculate_rcs))
         self.button_continue.grid(row=15, column=1,columnspan=2, padx=5, pady=(5,5))
         self.material_window.deiconify()
         
     def define_actual_material_frame(self):
         self.material_actual_configuration = customtkinter.CTkToplevel(self.material_window)
         self.material_actual_configuration.withdraw()
-        self.material_actual_configuration.title("Camadas Já Incluídas")
+        self.material_actual_configuration.title("Layers Already Included")
         
         if self.system == "win":
             self.material_actual_configuration.iconphoto(True, self.icon_image)
@@ -284,7 +284,7 @@ class App(customtkinter.CTk):
         self.inner_frame.grid_rowconfigure(2, weight=1)
         self.inner_frame.grid_columnconfigure(0, weight=1)
 
-        self.slider_value_label = customtkinter.CTkLabel(self.inner_frame, text="Faceta Selecionada: 1",font=customtkinter.CTkFont(size=13, weight="bold"))
+        self.slider_value_label = customtkinter.CTkLabel(self.inner_frame, text="Selected Facet: 1",font=customtkinter.CTkFont(size=13, weight="bold"))
         self.slider_value_label.grid(row=0, column=0, columnspan=2, padx=10, pady=5)
 
         self.slider = customtkinter.CTkSlider(self.inner_frame, from_=self.facetBeginIndex, to=self.facetEndIndex, command=self.on_slidebar_change)
@@ -360,8 +360,8 @@ class App(customtkinter.CTk):
             elif pol == 'TE-Z': return 1
 
         def convert_reisivity(rest):
-            if rest == 'Condutor Perfeito': return 0
-            elif rest == 'Material Específico': return 1
+            if rest == 'Perfect Driver': return 0
+            elif rest == 'Specific Material': return 1
 
         simulationParamsList = [self.model]
         
@@ -379,8 +379,8 @@ class App(customtkinter.CTk):
         wave = 3e8/(self.simulationParamsList[FREQUENCY])
 
         if self.simulationParamsList[STANDART_DEVIATION] > 0.1*wave:
-            messagebox.showerror("Desvio", "Desvio Padrão elevado")
-            raise ValueError("Desvio padrão elevado")
+            messagebox.showerror("Deviation", "High Standard Deviation")
+            raise ValueError("High standard deviation")
 
     def define_action_for_each_resistivity_case(self):
         self.ntria = self.coordinatesData[NTRIA]
@@ -428,31 +428,31 @@ class App(customtkinter.CTk):
             self.calculate_and_show_rcs_results()
         
         else:
-            if (self.type == 'Multiplas Camadas' or self.type == 'Multiplas Camadas em PEC') and self.material_properties_list != []:
+            if (self.type == 'Multiple Layers' or self.type == 'Multiple Layers in PEC') and self.material_properties_list != []:
                 self.material_window.withdraw()       
                 save_list_in_file(self.material_properties_list,'matrl.txt')
                 self.calculate_and_show_rcs_results()
 
             else:
-                self.material_message.configure(text="Preencha os campos corretamente.")
+                self.material_message.configure(text="Fill in the fields correctly.")
                 self.end_generate_attempt()
 
     def show_actual_material_config_event(self):
-        if (self.get_entrys_from_material_interface() or self.type == 'Multiplas Camadas' or self.type == 'Multiplas Camadas em PEC') and len(self.material_properties_list) != 0:
+        if (self.get_entrys_from_material_interface() or self.type == 'Multiple Layers' or self.type == 'Multiple Layers in PEC') and len(self.material_properties_list) != 0:
             self.define_actual_material_frame()
             self.material_message.configure(text="")   
 
         else:   
-            self.material_message.configure(text="Sem camadas adicionadas.")
+            self.material_message.configure(text="No layers added.")
     
     def define_material_properties_list_from_material_file(self):
         self.material_window.withdraw()
         
-        materialFile = askopenfile(title="Selecionar um arquivo", filetypes=[("Text files", "*.txt")])
+        materialFile = askopenfile(title="Select a file", filetypes=[("Text files", "*.txt")])
        
         self.material_properties_list = get_material_properties_from_file(materialFile)
         if len(self.material_properties_list) != self.ntria:
-            self.material_message.configure(text="Número de facets divergentes.")
+            self.material_message.configure(text="Number of divergent facets.")
             self.end_generate_attempt()
         else:
             save_list_in_file(self.material_properties_list,'matrl.txt')
@@ -467,12 +467,12 @@ class App(customtkinter.CTk):
             self.remove_last_layer()
             self.material_message.configure(text="")
         
-        elif (self.type == "Multiplas Camadas" or self.type == "Multiplas Camadas em PEC") and len(self.material_properties_list) > 0:
+        elif (self.type == "Multiple Layers" or self.type == "Multiple Layers in PEC") and len(self.material_properties_list) > 0:
             file_path = asksaveasfilename(defaultextension=".txt", 
                                              filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
             save_list_in_file(self.material_properties_list,file_path)
         else:
-            self.material_message.configure(text="Sem camadas incluídas.")
+            self.material_message.configure(text="No layers included.")
         
     def update_material_properties_list(self):
         self.material_properties_list = []
@@ -491,9 +491,9 @@ class App(customtkinter.CTk):
     def add_new_layer_event(self):
         if self.get_entrys_from_material_interface():
             self.add_current_layer()
-            self.material_message.configure(text="Nova camada adicionada com sucesso")
+            self.material_message.configure(text="New layer added successfully")
         else:
-            self.material_message.configure(text="Entradas inválidas")
+            self.material_message.configure(text="Invalid Entries")
         
     def add_current_layer(self):
         layerProperties = [self.RelPermittivity, self.lossTangent, self.RelaPermeabilityReal, self.RelaPermeabilityImaginary, self.thickness]
@@ -507,7 +507,7 @@ class App(customtkinter.CTk):
             self.try_remove_last_layer()
                 
         except Exception as e:
-            self.material_message.configure(text="Sem mais camadas a remover")
+            self.material_message.configure(text="No more layers to remove")
             
     def try_remove_last_layer(self):
         remove_some_layer = False
@@ -521,10 +521,10 @@ class App(customtkinter.CTk):
                     self.material_properties_list[facetIndex][0] = "PEC"
                                
         if remove_some_layer:
-            self.material_message.configure(text="Remoção realizada com sucesso")
+            self.material_message.configure(text="Removal successfully performed")
             self.update_material_properties_list()
         else:
-            self.material_message.configure(text="Sem mais camadas a remover")
+            self.material_message.configure(text="No more layers to remove")
                   
     def get_facets_indexs(self):
         ffacet_value = getattr(self, "ffacet_entry").get()
@@ -534,8 +534,8 @@ class App(customtkinter.CTk):
         self.facetEndIndex = int(lfacet_value) if lfacet_value.strip() else self.ntria
         
         if self.facetBeginIndex > self.facetEndIndex:
-            self.material_message.configure(text="Índices das facetas conflitantes.")
-            raise ValueError("Last facet index must be bigger ther first index facet.")
+            self.material_message.configure(text="Indexes of conflicting facets.")
+            raise ValueError("Last facet index must be bigger than first index facet.")
  
     def reset_all_material_lists_and_define_type(self,type):
         self.material_properties_list = []
@@ -550,8 +550,8 @@ class App(customtkinter.CTk):
 
         self.restore_result_tab()
         
-        if self.plotpath == "Number of entrys in matrl diferent from number of facets." or self.plotpath == "Matrl file not found.":
-            raise Exception("Error no arquivo de caracteristicas do materiais.")
+        if self.plotpath == "Number of entries in material different from number of facets." or self.plotpath == "Material file not found.":
+            raise Exception("Error in the material characteristics file.")
 
         self.show_results_on_interface()
     
@@ -570,8 +570,8 @@ class App(customtkinter.CTk):
     def error_message_and_restore_tab(self,e):
         print(f"An error occurred: {str(e)}")
         self.restore_result_tab()
-        if self.method[:4] == 'mono': self.monoerror.configure(text="Entradas Inválidas!")
-        elif self.method[:2] == 'bi': self.bierror.configure(text="Entradas Inválidas!")
+        if self.method[:4] == 'mono': self.monoerror.configure(text="Invalid Entries!")
+        elif self.method[:2] == 'bi': self.bierror.configure(text="Invalid Entries!")
         
     def show_results_on_interface(self):
         self.results_window()
@@ -582,7 +582,7 @@ class App(customtkinter.CTk):
         # Plot - Garantir que a imagem seja quadrada
         plot_image = Image.open(self.plotpath)
         plot = customtkinter.CTkImage(dark_image=plot_image, size=(400, 400))  
-        self.plottext = customtkinter.CTkLabel(self.results_frame, text="Seção Reta Radar do Alvo Carregado")
+        self.plottext = customtkinter.CTkLabel(self.results_frame, text="Straight Section Radar of the Charged Target")
         self.plottext.grid(row=1, column=1, columnspan=1, padx=0, pady=0, stick="nsew")
         self.plot = customtkinter.CTkLabel(self.results_frame, image=plot, text="")
         self.plot.grid(row=2, column=1, padx=(20, 5), pady=0, sticky="nsew")
@@ -591,24 +591,24 @@ class App(customtkinter.CTk):
         fig_image = Image.open(self.figpath)
         fig_image = ImageOps.pad(fig_image, (400, 400), color="white") 
         fig = customtkinter.CTkImage(dark_image=fig_image, size=(400, 400)) 
-        self.figtext = customtkinter.CTkLabel(self.results_frame, text="Modelo Triangular do Alvo Carregado (.stl)")
+        self.figtext = customtkinter.CTkLabel(self.results_frame, text="Triangular Loaded Target Model (.stl)")
         self.figtext.grid(row=1, column=2, columnspan=1, padx=0, pady=0, stick="nsew")
         self.fig = customtkinter.CTkLabel(self.results_frame, image=fig, text="")
         self.fig.grid(row=2, column=2, columnspan=1, padx=(5, 10), pady=0, sticky="nsew")
 
         # Botões de download e reset
-        self.saveplot = customtkinter.CTkButton(self.results_frame, text="⬇ Download Gráfico", command=self.save_plot, width=300)
+        self.saveplot = customtkinter.CTkButton(self.results_frame, text="⬇ Download Graphic", command=self.save_plot, width=300)
         self.saveplot.grid(row=3, column=1, columnspan=2, padx=5, pady=(25, 5))
-        self.savefile = customtkinter.CTkButton(self.results_frame, text="⬇ Download Modelo Triangular", command=self.save_fig, width=300)
+        self.savefile = customtkinter.CTkButton(self.results_frame, text="⬇ Download Triangular Template", command=self.save_fig, width=300)
         self.savefile.grid(row=4, column=1, columnspan=2, padx=5, pady=(5, 5))
-        self.savefig = customtkinter.CTkButton(self.results_frame, text="⬇ Download Arquivo de Dados", command=self.save_file, width=300)
+        self.savefig = customtkinter.CTkButton(self.results_frame, text="⬇ Download Data File", command=self.save_file, width=300)
         self.savefig.grid(row=5, column=1, columnspan=2, padx=5, pady=(5, 5))
-        self.reset = customtkinter.CTkButton(self.results_frame, text="Limpar Área", command=self.reset_event, fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.reset = customtkinter.CTkButton(self.results_frame, text="Clear Area", command=self.reset_event, fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.reset.grid(row=6, column=1, columnspan=2, padx=5, pady=15)
        
     def upload(self):
-        file = askopenfile(title="Selecionar um arquivo",
-                  filetypes=[("Arquivos STL", "*.stl")])
+        file = askopenfile(title="Select a file",
+                  filetypes=[("STL Files", "*.stl")])
         if file:
             stl_converter(file.name)
             self.model = os.path.basename(file.name)
@@ -616,7 +616,7 @@ class App(customtkinter.CTk):
             self.monomodel.configure(text=self.monomodel_text)
     
     def load_header_of_material_table(self): 
-        columns = ["Camada","Material", "Descrição", "Permis. Relat.", "Tang. de Perdas", "Permea. Rela. Real", "Permea. Rela. Img", "Espess."]
+        columns = ["Layer", "Material", "Description", "Pers. Relat.", "Tang. of Losses", "Permea. Related. Real", "Permeate. Related. Img", "Espess."]
         
         for col_index, col_name in enumerate(columns):
             header_label = customtkinter.CTkLabel(self.table_inner_frame, text=col_name, font=customtkinter.CTkFont(weight="bold"))
@@ -646,7 +646,7 @@ class App(customtkinter.CTk):
             
     def on_button_enter(self, event):
         if self.model:
-            self.monomodel.configure(text="\n⬆\nUpload Modelo (.stl)\n")
+            self.monomodel.configure(text="\n⬆\nUpload Model (.stl)\n")
 
     def on_button_leave(self, event):
         # Restore the button text if not uploaded on mouse leave
@@ -656,16 +656,16 @@ class App(customtkinter.CTk):
     def on_select_material_type(self,choice):
         self.reset_all_material_lists_and_define_type("PEC")
         
-        if choice == "PEC" or choice == "Composito" or choice == "Composito Layer on PEC":
+        if choice == "PEC" or choice == "Composite" or choice == "Composite Layer on PEC":
             self.button_addlayer.grid_remove()
             self.button_removelayer.grid_remove()
             
-        elif choice == "Multiplas Camadas" or choice == "Multiplas Camadas em PEC":
+        elif choice == "Multiple Layers" or choice == "Multiple Layers in PEC":
             self.button_addlayer.grid(row=12, column=0, padx=5, pady=(5,5))
             self.button_removelayer.grid(row=12, column=1, padx=5, pady=(5,5))
             
     def on_slidebar_change(self,new_value = 1):
-        self.slider_value_label.configure(text=f"Faceta Selecionada: {int(new_value)}",font=customtkinter.CTkFont(size=13, weight="bold"))
+        self.slider_value_label.configure(text=f"Selected Facet: {int(new_value)}",font=customtkinter.CTkFont(size=13, weight="bold"))
         self.load_lines_of_material_table(int(new_value))
             
     def save_plot(self):
@@ -723,9 +723,9 @@ class App(customtkinter.CTk):
         if self.gif.winfo_exists():
             self.appearance_mode_optionemenu.set(self.last_appearance_mode)
         else:
-            if new_appearance_mode == "Claro": 
+            if new_appearance_mode == "Light": 
                 self.last_appearance_mode = "Light"
-            elif new_appearance_mode == "Escuro": 
+            elif new_appearance_mode == "Dark": 
                 self.last_appearance_mode = "Dark"
             else: 
                 self.last_appearance_mode = "System"
@@ -764,7 +764,7 @@ class App(customtkinter.CTk):
         self.loading_gif()
 
     def on_closing(self):
-        if messagebox.askokcancel("Sair", "Deseja sair do programa?"):
+        if messagebox.askokcancel("Exit", "Do you want to leave the program?"):
             try:
                 self.reset_event()
                 if self.thread.isAlive():
@@ -775,7 +775,7 @@ class App(customtkinter.CTk):
             self.quit()
 
     def on_save(self):
-        messagebox.showinfo("Arquivo Salvo", f"Arquivo salvo na pasta results do diretório do OpenRCS")
+        messagebox.showinfo("Saved File", f"File saved in the results folder of the OpenRCS directory")
         
         
 def run_rcs_monostatic(simulationParamsList, coordinatesData, result_queue):

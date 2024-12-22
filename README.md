@@ -66,11 +66,11 @@ The reflection directions are defined using simple spherical coordinates from th
 
 2. Select the STL file
 
-3. Press the generate results ("Gerar Resultados") button.
+3. Press the generate results ("Generate Results") button.
 
   <img src='img/openrcs_monostatic.png' width='900'>
 
-Alternatively, you can run the RCS simulation with the .dat file and press the generate results from input file ("Gerar Resultados do Input File") button.
+Alternatively, you can run the RCS simulation with the .dat file and press the generate results from input file ("Generate Input File Results") button.
 
 The input parameters should be added to the input_files/input_data_file_monostatic.dat file, in the following model:
 
@@ -82,11 +82,11 @@ The input parameters should be added to the input_files/input_data_file_monostat
 
 2. Select the STL file
 
-3. Press the generate results ("Gerar Resultados") button.
+3. Press the generate results ("Generate Results") button.
 
   <img src='img/openrcs_bistatic.png' width='900'>
 
-Alternatively, you can run the RCS simulation with the .dat file and press the generate results from input file ("Gerar Resultados do Input File") button.
+Alternatively, you can run the RCS simulation with the .dat file and press the generate results from input file ("Generate Input File Results") button.
 
 The input parameters should be added to the input_files/input_data_file_bistatic.dat file, in the following model:
 

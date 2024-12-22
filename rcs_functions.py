@@ -149,18 +149,18 @@ def plot_triangle_model(input_model, vind, x, y, z, xpts, ypts, zpts, nverts, nt
     zmax = max(zpts)
     zmin = min(zpts)
     
-    # Definindo o maior intervalo entre os eixos para manter a proporção
+    # Setting the Longest Interval Between Axes to Maintain Ratio
     x_range = xmax - xmin
     y_range = ymax - ymin
     z_range = zmax - zmin
     max_range = max(x_range, y_range, z_range)
 
-    # Ajustando os limites de cada eixo para garantir a mesma proporção
+    # Adjusting the limits of each axis to ensure the same ratio
     ax.set_xlim([xmin, xmin + max_range])
     ax.set_ylim([ymin, ymin + max_range])
     ax.set_zlim([zmin, zmin + max_range])
 
-    # Mantendo a proporção entre os eixos x, y e z
+    # Maintaining the ratio between the x, y, and z axes
     ax.set_box_aspect([1, 1, 1])
     
     if ilabv == 'y':
@@ -226,13 +226,13 @@ def calculate_values(pstart, pstop, delp, tstart, tstop, delt, ntria, rad):
     return Area, alpha, beta, N, d, ip, it 
 
 def bi_calculate_values(pstart, pstop, delp, tstart, tstop, delt, ntria, rad, fii,thetai):
-    # Calcula os valores das funções trigonométricas
+    # Calculates the values of trigonometric functions
     cpi = np.cos(fii* np.pi / 180.0)
     spi = np.sin(fii* np.pi / 180.0)
     sti = np.sin(thetai* np.pi / 180.0)
     cti = np.cos(thetai* np.pi / 180.0)
 
-    # Calcula os valores dos vetores
+    # Calculates vector values
     ui = sti * cpi
     vi = sti * spi
     wi = cti
@@ -305,7 +305,7 @@ def bi_incidentFieldCartesian(uu,vv,ww,cpi,spi,Et,Ep,e0):
 def sphericalAngles(u2,v2,w2):
                         th2=math.asin(np.sqrt(u2**2+v2**2)*np.sign(w2))
                         phi2=math.atan2(v2,u2+1e-10)
-                        if(v2==u2+1e-10==0): #porque precisou disso?
+                        if(v2==u2+1e-10==0): #Why did you need it?
                             phi2=0
                         return th2, phi2
 
@@ -314,7 +314,7 @@ def bi_sphericalAngles(ui2,vi2,wi2):
     cti2=np.sqrt(1-sti2**2)
     thi2=math.acos(cti2)
     phii2=math.atan2(vi2,ui2+1e-10)
-    if(vi2==ui2+1e-10==0): #porque precisou disso?
+    if(vi2==ui2+1e-10==0): #Why did you need it?
         phii2=0
     return thi2, phii2, np.cos(phii2), np.sin(phii2), sti2, cti2
 
@@ -424,24 +424,24 @@ def rotationTransfMatrix(alpha,beta):
     return np.dot(T2,T1)
 
 def reflCoeff(er1,mr1,er2,mr2,thetai):
-    m0 = 4 * np.pi * 1e-7  # permeabilidade no vácuo
-    e0 = 8.854e-12  # permissividade no vácuo
+    m0 = 4 * np.pi * 1e-7  # Permeability in vacuum
+    e0 = 8.854e-12  # Permittivity in a vacuum
     
     TIR = 0
     sinthetat = np.sin(thetai) * np.sqrt(np.real(er1) * np.real(mr1) / (np.real(er2) * np.real(mr2)))
 
-    # Verificação de reflexão interna total (TIR)
+    # Total Internal Reflection (TIR) Check
     if sinthetat > 1:
         TIR = 1
-        thetat = np.pi / 2  # ângulo crítico
+        thetat = np.pi / 2  # Critical angle
     else:
         thetat = np.arcsin(sinthetat)
 
-    # Cálculo de n1 e n2 (índices de refração)
+    # Calculation of n1 and n2 (refractive indices)
     n1 = np.sqrt(mr1 * m0 / (er1 * e0))
     n2 = np.sqrt(mr2 * m0 / (er2 * e0))
 
-    # Cálculo de gammaperp e gammapar
+    # Calculus of gammaperp and gammapar
     gammaperp = (n2 * np.cos(thetai) - n1 * np.cos(thetat)) / (n2 * np.cos(thetai) + n1 * np.cos(thetat))
     gammapar = (n2 * np.cos(thetat) - n1 * np.cos(thetai)) / (n2 * np.cos(thetat) + n1 * np.cos(thetai))
     
@@ -943,7 +943,7 @@ def productVector(ntria,N,r,d,Area,alpha,beta,vind):
         d[i, 2] = np.linalg.norm(C)
         ss = .5*sum(d[i, :])
         Area[i] = np.sqrt(ss*(ss-d[i, 0])*(ss-d[i, 1])*(ss-d[i, 2]))
-        Nn = np.linalg.norm(N[i, :]) # unit normals
+        Nn = np.linalg.norm(N[i, :]) # Normal units
         if Nn != 0:
             N[i, :] = N[i, :]/Nn
         beta[i] = math.acos(N[i, 2])  # 0<beta<180, -180<phi<180

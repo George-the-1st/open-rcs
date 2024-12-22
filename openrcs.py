@@ -579,7 +579,7 @@ class App(customtkinter.CTk):
         elif self.method == 'bistatic': self.bierror.configure(text="")
             
     def results_window(self):
-        # Plot - Garantir que a imagem seja quadrada
+        # Plot - Ensure the image is square
         plot_image = Image.open(self.plotpath)
         plot = customtkinter.CTkImage(dark_image=plot_image, size=(400, 400))  
         self.plottext = customtkinter.CTkLabel(self.results_frame, text="Straight Section Radar of the Charged Target")
@@ -587,7 +587,7 @@ class App(customtkinter.CTk):
         self.plot = customtkinter.CTkLabel(self.results_frame, image=plot, text="")
         self.plot.grid(row=2, column=1, padx=(20, 5), pady=0, sticky="nsew")
 
-        # Fig - Garantir que a imagem seja quadrada
+        # Fig - Ensure the image is square
         fig_image = Image.open(self.figpath)
         fig_image = ImageOps.pad(fig_image, (400, 400), color="white") 
         fig = customtkinter.CTkImage(dark_image=fig_image, size=(400, 400)) 
@@ -596,7 +596,7 @@ class App(customtkinter.CTk):
         self.fig = customtkinter.CTkLabel(self.results_frame, image=fig, text="")
         self.fig.grid(row=2, column=2, columnspan=1, padx=(5, 10), pady=0, sticky="nsew")
 
-        # Botões de download e reset
+        # Download and reset buttons
         self.saveplot = customtkinter.CTkButton(self.results_frame, text="⬇ Download Graphic", command=self.save_plot, width=300)
         self.saveplot.grid(row=3, column=1, columnspan=2, padx=5, pady=(25, 5))
         self.savefile = customtkinter.CTkButton(self.results_frame, text="⬇ Download Triangular Template", command=self.save_fig, width=300)

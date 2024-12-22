@@ -9,7 +9,7 @@ def rcs_bistatic(params_entrys:list, coordinatesData:list) -> tuple[str,list,lis
     x, y, z, xpts, ypts, zpts, nverts, nfc, node1, node2, node3, iflag, ilum, Rs, ntria, vind, r = coordinatesData
     
     matrl = []
-    if rs == MATERIALESPECIFICO:
+    if rs == SPECIFICMATERIAL:
         try:
             matrl = getEntrysFromMatrlFile(ntria,matrlpath)
         except Exception as e:

@@ -10,7 +10,7 @@ import os
 from stl_module import *
 from rcs_monostatic import *
 from rcs_bistatic import *
-from rcs_functions import getParamsFromFile,FREQUENCY,STANDART_DEVIATION,RESISTIVITY,MATERIALESPECIFICO,NTRIA
+from rcs_functions import getParamsFromFile,FREQUENCY,STANDART_DEVIATION,RESISTIVITY,SPECIFICMATERIAL,NTRIA
 from thread_trace import thread_with_trace
 from gif import ImageLabel
 import platform
@@ -123,7 +123,7 @@ class App(customtkinter.CTk):
         self.monodelt.grid(row=4, column=2, padx=5, pady=(5, 5))
         self.monoresult = customtkinter.CTkButton(self.tabview.tab("Monostatic"), text="Generate Results", command=lambda: self.generate_and_show_results_event('monostatic','interface'))
         self.monoresult.grid(row=6, column=1, padx=5, pady=(40, 0), sticky="nsew")
-        self.monoresultfile = customtkinter.CTkButton(self.tabview.tab("Monostatic"), text="Generate Input File Results", command=lambda:self.generate_and_show_results_event('monostatic','inputFile'), fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.monoresultfile = customtkinter.CTkButton(self.tabview.tab("Monostatic"), text="Generate Results from Input File", command=lambda:self.generate_and_show_results_event('monostatic','inputFile'), fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.monoresultfile.grid(row=7, column=0, columnspan=3, padx=5, pady=(10, 0))
         self.monoerror = customtkinter.CTkLabel(self.tabview.tab("Monostatic"), text="", font=customtkinter.CTkFont(size=10, weight="bold"))
         self.monoerror.grid(row=8, column=1, padx=5, pady=0, sticky="ew")
@@ -163,7 +163,7 @@ class App(customtkinter.CTk):
         self.bidelt.grid(row=5, column=2, padx=5, pady=(5, 5))
         self.biresult = customtkinter.CTkButton(self.tabview.tab("Bistatic"), text="Generate Results", command=lambda: self.generate_and_show_results_event('bistatic','interface'))
         self.biresult.grid(row=7, column=1, padx=5, pady=(40, 0), sticky="nsew")
-        self.biresultfile = customtkinter.CTkButton(self.tabview.tab("Bistatic"), text="Generate Input File Results", command=lambda: self.generate_and_show_results_event('bistatic','inputFile'), fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
+        self.biresultfile = customtkinter.CTkButton(self.tabview.tab("Bistatic"), text="Generate Results from Input File", command=lambda: self.generate_and_show_results_event('bistatic','inputFile'), fg_color=ThemeManager.theme['CTkEntry']['fg_color'], text_color=ThemeManager.theme['CTkEntry']['placeholder_text_color'])
         self.biresultfile.grid(row=8, column=0, columnspan=3, padx=5, pady=(10, 0))
         self.bierror = customtkinter.CTkLabel(self.tabview.tab("Bistatic"), text="")
         self.bierror.grid(row=9, column=1, padx=5, pady=0, sticky="ew")
@@ -386,7 +386,7 @@ class App(customtkinter.CTk):
         self.ntria = self.coordinatesData[NTRIA]
         self.reset_all_material_lists_and_define_type('PEC')
         
-        if self.simulationParamsList[RESISTIVITY] == MATERIALESPECIFICO:
+        if self.simulationParamsList[RESISTIVITY] == SPECIFICMATERIAL:
             self.especific_material_treatment()
         else:
             self.update_material_properties_list()

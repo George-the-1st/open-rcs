@@ -13,7 +13,7 @@ INPUT_MODEL = 0
 FREQUENCY = 1
 STANDART_DEVIATION = 3
 RESISTIVITY = 5
-MATERIALESPECIFICO = 1
+SPECIFICMATERIAL = 1
 TYPE = 0
 THETA = 1
 NTRIA = 14
@@ -81,7 +81,7 @@ def getParamsFromFile(method):
     param_list[FREQUENCY] = float(param_list[FREQUENCY]) * 1e9
     stl_converter("./stl_models/"+ param_list[INPUT_MODEL])
     
-    if param_list[RESISTIVITY] != MATERIALESPECIFICO:
+    if param_list[RESISTIVITY] != SPECIFICMATERIAL:
         param_list[-1] = "matrl.txt"
         
     return param_list
@@ -733,7 +733,7 @@ def reflectionCoefficients(rs:int, index:int, th2:float, thri:float, phrii:float
     perp = 0
     para = 0
     
-    if rs == MATERIALESPECIFICO:
+    if rs == SPECIFICMATERIAL:
         perp, para = getReflCoeffFromMatrl(thri,phrii, alpha, beta, freq, matrl[index])
     else:          
         perp=-1/(2*rs*math.cos(th2)+1)  #local TE polarization

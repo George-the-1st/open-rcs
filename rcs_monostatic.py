@@ -10,7 +10,7 @@ def rcs_monostatic(params_entrys:list, coordinatesData:list)-> tuple[str,list,li
     
     matrl = []
     
-    if rs == MATERIALESPECIFICO:
+    if rs == SPECIFICMATERIAL:
         try:
             matrl = getEntrysFromMatrlFile(ntria,matrlpath)
         except Exception as e:

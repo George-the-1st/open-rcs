@@ -1,3 +1,5 @@
 __pycache__/*
 results/*
 *.txt
+coordinates.txt
+facets.txt
